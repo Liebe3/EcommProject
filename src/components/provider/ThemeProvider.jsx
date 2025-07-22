@@ -5,16 +5,23 @@ const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("dark");
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+    const storedTheme = theme === "dark" ? "light" : "dark";
+    setTheme(storedTheme);
+    localStorage.setItem("theme", storedTheme);
   };
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+    const saveTheme = localStorage.getItem("theme");
+    if (saveTheme) {
+      setTheme(saveTheme);
     }
+  }, []);
+
+  useEffect(() => {
+    const isDarkMode = theme === "dark";
+    document.documentElement.classList.toggle("dark", isDarkMode);
   }, [theme]);
+  
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}

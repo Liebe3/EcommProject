@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import ProductCard from "../../components/product/ProductCard";
 import * as motion from "motion/react-client";
 import { Link } from "react-router-dom";
@@ -8,15 +8,13 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("https://dummyjson.com/products/")
-      .then((response) => response.json())
-      .then((data) => {
-        const featuredProduct = data.products.slice(0, 3);
-        setProducts(featuredProduct);
-      })
-      .catch((error) => console.error("Failed to fetch products", error));
+    const fetchFeaturedProduct = async () => {
+      const response = await fetch("https://dummyjson.com/products/");
+      const data = await response.json();
+      setProducts(data.products.slice(0, 3));
+    };
+    fetchFeaturedProduct();
   }, []);
-
   // const withoutImageId = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 19, 28];
 
   // const filteredProducts = products.filter((product) => {

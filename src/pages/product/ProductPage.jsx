@@ -1,7 +1,8 @@
 // src/pages/ProductPage.jsx
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { href, Link, useParams } from "react-router-dom";
 import ProductsNotFound from "../../components/states/ProductsNotFound";
+import CartContext from "../../context/CartContext";
 
 const ProductPage = () => {
   const PRODUCT_LINK = [
@@ -11,12 +12,20 @@ const ProductPage = () => {
 
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const { handleAddToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => setProduct(data))
-      .catch((err) => console.error("Failed to load product", err));
+    const fetchProductId = async () => {
+      try {
+        const response = await fetch(`https://dummyjson.com/products/${id}`);
+        const data = await response.json();
+        setProduct(data);
+      } catch (error) {
+        console.error("failed to fetch data", error);
+      }
+    };
+
+    fetchProductId();
   }, [id]);
 
   return (
@@ -48,7 +57,7 @@ const ProductPage = () => {
               <div className="p-8 grid md:grid-cols-2 gap-12">
                 <div className="bg-gray-50 dark:bg-[#0d1117] rounded-lg p-6 flex items-center justify-center">
                   <img
-                    src={product.images}
+                    src={product.images?.[0]}
                     alt={product.title}
                     className="w-full max-h-[400px] object-contain rounded-lg"
                   />
@@ -69,7 +78,7 @@ const ProductPage = () => {
                     <div className="flex flex-col sm:flex-row gap-4">
                       <button
                         className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-                        onClick={() => alert("Add to Cart logic coming soon!")}
+                        onClick={() => product && handleAddToCart(product)}
                       >
                         Add to Cart
                       </button>

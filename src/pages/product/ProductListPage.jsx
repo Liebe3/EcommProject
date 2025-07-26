@@ -38,9 +38,9 @@ const ProductListPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 p-6">
           {filteredProducts.map((product) => {
             return (
-              <Link key={product.id} to={`/product/${product.id}`}>
-                <ProductItem product={product} />
-              </Link>
+              <div key={product.id}>
+                <ProductItem product={product} productID={product.id} />
+              </div>
             );
           })}
         </div>

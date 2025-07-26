@@ -17,12 +17,6 @@ const ProductCard = ({ product }) => {
                 className="w-full h-full object-cover object-center "
               />
             </div>
-
-            {/* Price badge with enhanced styling */}
-            <div className="absolute top-8 left-8 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-bold px-2 py-1 rounded-full shadow-xl backdrop-blur-sm border border-blue-400/20 z-10">
-              <span className="text-xs opacity-90">$</span>
-              <span className="text-sm">{product.price}</span>
-            </div>
           </div>
 
           {/* Content section with better spacing */}

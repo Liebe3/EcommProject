@@ -3,23 +3,29 @@ import ProductCard from "../../components/product/ProductCard";
 import * as motion from "motion/react-client";
 import { Link } from "react-router-dom";
 import Footer from "../../components/ui/Footer";
+import Loading from "../../components/states/Loading";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchFeaturedProduct = async () => {
-      const response = await fetch("https://dummyjson.com/products/");
-      const data = await response.json();
-      setProducts(data.products.slice(0, 3));
+      try {
+        setLoading(true);
+        const response = await fetch(`https://dummyjson.com/products/`);
+        const data = await response.json();
+        setProducts(data.products.slice(0, 3));
+      } catch (error) {
+        console.log("Failed to load data", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchFeaturedProduct();
   }, []);
-  // const withoutImageId = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 19, 28];
 
-  // const filteredProducts = products.filter((product) => {
-  //   return !withoutImageId.includes(product.id);
-  // });
+  if (loading) return <Loading />;
 
   return (
     <>

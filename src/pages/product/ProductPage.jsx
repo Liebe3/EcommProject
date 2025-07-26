@@ -115,7 +115,7 @@ const ProductPage = () => {
                   <div className="border-t border-gray-200 dark:border-[#30363d] pt-6">
                     <div className="flex flex-col sm:flex-row gap-4">
                       <button
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
                         onClick={() => product && handleAddToCart(product)}
                       >
                         Add to Cart

@@ -1,8 +1,10 @@
 // src/pages/ProductPage.jsx
-import React, { useContext, useEffect, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import { href, Link, useParams } from "react-router-dom";
 import ProductsNotFound from "../../components/states/ProductsNotFound";
 import CartContext from "../../context/CartContext";
+import { span } from "motion/react-client";
+import Loading from "../../components/states/Loading";
 
 const ProductPage = () => {
   const PRODUCT_LINK = [
@@ -12,21 +14,29 @@ const ProductPage = () => {
 
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { handleAddToCart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProductId = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`https://dummyjson.com/products/${id}`);
         const data = await response.json();
         setProduct(data);
       } catch (error) {
         console.error("failed to fetch data", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProductId();
   }, [id]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen w-full dark:bg-[#0d1117] dark:text-[#f0f6fc] bg-gray-50">
@@ -63,6 +73,9 @@ const ProductPage = () => {
                   />
                 </div>
                 <div className="flex flex-col justify-center space-y-6">
+                  <p className="text-3xl font-bold text-green-600 dark:text-green-400 ">
+                    ${product.price}
+                  </p>
                   <div>
                     <h1 className="text-4xl font-bold mb-3 text-gray-900 dark:text-[#f0f6fc]">
                       {product.title}
@@ -71,19 +84,41 @@ const ProductPage = () => {
                       {product.description}
                     </p>
                   </div>
+                  <div className="text-xl  tracking-wider text-blue-600 dark:text-blue-400">
+                    {product.stock < 5 ? (
+                      <p className="text-red-600 font-bold">
+                        Only {product.stock} left in stock!
+                      </p>
+                    ) : (
+                      <p className="text-gray-600">
+                        Available: {product.stock}
+                      </p>
+                    )}
+                    <div className="flex items-center mb-2">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <svg
+                          key={index}
+                          xmlns="http://www.w3.org/2000/svg"
+                          className={`h-5 w-5 ${
+                            index < product.rating
+                              ? "text-yellow-400"
+                              : "text-gray-300 dark:text-gray-600"
+                          }`}
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.37 2.448a1 1 0 00-.364 1.118l1.286 3.957c.3.921-.755 1.688-1.538 1.118l-3.37-2.448a1 1 0 00-1.176 0l-3.37 2.448c-.783.57-1.838-.197-1.538-1.118l1.286-3.957a1 1 0 00-.364-1.118L2.07 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
                   <div className="border-t border-gray-200 dark:border-[#30363d] pt-6">
-                    <p className="text-3xl font-bold text-green-600 dark:text-green-400 mb-6">
-                      ${product.price}
-                    </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <button
                         className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                         onClick={() => product && handleAddToCart(product)}
                       >
                         Add to Cart
-                      </button>
-                      <button className="border-2 border-gray-300 dark:border-[#30363d] text-gray-700 dark:text-[#f0f6fc] px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 dark:hover:bg-[#21262d] transition-all duration-200">
-                        Add to Wishlist
                       </button>
                     </div>
                   </div>

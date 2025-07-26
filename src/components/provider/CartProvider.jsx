@@ -16,20 +16,25 @@ const CartProvider = ({ children }) => {
     localStorage.setItem("carts", JSON.stringify(carts));
   }, [carts]);
 
+  //check if product and product.id is exist
   const handleAddToCart = (product) => {
-    if (!product?.id) return;
+    if (!product || !product.id) {
+      return;
+    }
 
+    // finding the existing item
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
 
-      if (existingItem) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
+      //item not exist we add quantity property to arrray object product
+      if (!existingItem) {
         return [...prevCart, { ...product, quantity: 1 }];
+      }
+      // Item exists – increment the quantity
+      else {
+        return prevCart.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
       }
     });
   };

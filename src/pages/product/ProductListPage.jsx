@@ -58,12 +58,13 @@ const ProductListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (debouncedSearch.trim() === "") return;
-
         setLoading(true);
-        const response = await fetch(
-          `https://dummyjson.com/products/search?q=${debouncedSearch}`
-        );
+
+        const url = debouncedSearch.trim() === "" ? 
+        "https://dummyjson.com/products?limit=50" : 
+        `https://dummyjson.com/products/search?q=${debouncedSearch}`;
+
+        const response = await fetch(url);
         const data = await response.json();
         setProducts(data.products);
       } catch (error) {
@@ -91,7 +92,7 @@ const ProductListPage = () => {
                 placeholder="Search..."
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                onKeyDown={(event) => event.key === "Enter" && handleSearch()}
+                // onKeyDown={(event) => event.key === "Enter" && handleSearch()}
                 className="w-full pl-10 pr-4 py-3 border border-black dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
               />
             </div>

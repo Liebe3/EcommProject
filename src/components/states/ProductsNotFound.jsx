@@ -1,4 +1,5 @@
-import React from "react";
+
+//libraries
 import { FiSearch, FiShoppingBag } from "react-icons/fi";
 
 const ProductsNotFound = () => {

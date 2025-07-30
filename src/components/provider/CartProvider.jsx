@@ -1,5 +1,13 @@
-import React, { useEffect, useState } from "react";
+
+//hooks
+import { useEffect, useState } from "react";
+
+//libraries
+import Swal from "sweetalert2";
+
+//context
 import CartContext from "../../context/CartContext";
+
 
 const CartProvider = ({ children }) => {
   const [carts, setCart] = useState(() => {
@@ -33,14 +41,41 @@ const CartProvider = ({ children }) => {
       // Item exists – increment the quantity
       else {
         return prevCart.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
+      }
+    });
+    Swal.fire("Item Added to cart!", "", "success");
+  };
+
+  const handleRemoveCart = (removeId) => {
+    const filteredCart = carts.filter((cart) => cart.id !== removeId);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Removed",
+          text: "Your item has been removed",
+          icon: "success",
+        });
+        setCart(filteredCart);
       }
     });
   };
 
   return (
-    <CartContext.Provider value={{ handleAddToCart }}>
+    <CartContext.Provider
+      value={{ handleAddToCart, carts, handleRemoveCart }}
+    >
       {children}
     </CartContext.Provider>
   );

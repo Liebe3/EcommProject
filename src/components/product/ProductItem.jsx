@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+//libraries
 import { Link } from "react-router-dom";
 
 const ProductItem = ({ product, productID }) => {

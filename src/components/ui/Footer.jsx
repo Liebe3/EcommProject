@@ -1,8 +1,7 @@
-import React from "react";
-import Navbar from "./Navbar";
+//libraries
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
-import { href, Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 
 const Quick_Links = [

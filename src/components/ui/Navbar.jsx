@@ -1,8 +1,11 @@
-import { NavLink } from "react-router-dom";
+//hooks
+import { useEffect, useState } from "react";
+
+//libraries
 import clsx from "clsx";
+import { NavLink } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
-import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [

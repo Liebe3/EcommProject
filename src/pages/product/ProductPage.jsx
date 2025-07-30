@@ -1,9 +1,14 @@
-// src/pages/ProductPage.jsx
-import React, { use, useContext, useEffect, useState } from "react";
-import { href, Link, useParams } from "react-router-dom";
-import ProductsNotFound from "../../components/states/ProductsNotFound";
+//hooks
+import { useContext, useEffect, useState } from "react";
+
+//libraries
+import { Link, useParams } from "react-router-dom";
+
+//context
 import CartContext from "../../context/CartContext";
-import { span } from "motion/react-client";
+
+//components
+import ProductsNotFound from "../../components/states/ProductsNotFound";
 import Loading from "../../components/states/Loading";
 
 const ProductPage = () => {

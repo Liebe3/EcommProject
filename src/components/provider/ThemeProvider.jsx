@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+//hooks
+import { useEffect, useState } from "react";
+
+//context
 import ThemeContext from "../../context/ThemeContext";
 
 const ThemeProvider = ({ children }) => {
@@ -21,7 +24,7 @@ const ThemeProvider = ({ children }) => {
     const isDarkMode = theme === "dark";
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [theme]);
-  
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}

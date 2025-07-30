@@ -1,6 +1,7 @@
-import { div } from "motion/react-client";
-import React from "react";
+//libraries
 import { Link } from "react-router-dom";
+
+//components
 import ProductsNotFound from "../states/ProductsNotFound";
 
 const ProductCard = ({ product }) => {

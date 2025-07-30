@@ -1,7 +1,12 @@
-import React, { use, useEffect, useState } from "react";
-import ProductCard from "../../components/product/ProductCard";
+//hooks
+import { useEffect, useState } from "react";
+
+//libraries
 import * as motion from "motion/react-client";
 import { Link } from "react-router-dom";
+
+//components
+import ProductCard from "../../components/product/ProductCard";
 import Footer from "../../components/ui/Footer";
 import Loading from "../../components/states/Loading";
 

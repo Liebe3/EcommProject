@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+// hooks
+import { useEffect, useState } from "react";
 
+//libraries
 import { FiSearch, FiChevronDown } from "react-icons/fi";
+
+//components
 import Loading from "../../components/states/Loading";
 import ProductItem from "../../components/product/ProductItem";
 import ProductsNotFound from "../../components/states/ProductsNotFound";
@@ -60,9 +64,10 @@ const ProductListPage = () => {
       try {
         setLoading(true);
 
-        const url = debouncedSearch.trim() === "" ? 
-        "https://dummyjson.com/products?limit=50" : 
-        `https://dummyjson.com/products/search?q=${debouncedSearch}`;
+        const url =
+          debouncedSearch.trim() === ""
+            ? "https://dummyjson.com/products?limit=50"
+            : `https://dummyjson.com/products/search?q=${debouncedSearch}`;
 
         const response = await fetch(url);
         const data = await response.json();

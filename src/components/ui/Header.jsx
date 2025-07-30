@@ -1,14 +1,29 @@
-import React, { useContext } from "react";
-import Navbar from "./Navbar";
-import logo from "../../assets/logo/logo.png";
+
+// hooks
+import { useContext } from "react";
+
+// library
+import { Link } from "react-router-dom";
 import { MdDarkMode } from "react-icons/md";
 import { FiSun } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
+import { motion } from "framer-motion";
+
+//context
 import ThemeContext from "../../context/ThemeContext";
-import { motion, AnimatePresence } from "framer-motion"; // ✅ Import motion
+import CartContext from "../../context/CartContext";
+
+// components
+import Navbar from "./Navbar";
+
+//assets
+import logo from "../../assets/logo/logo.png";
 
 const Header = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const { carts } = useContext(CartContext);
+
+  const totalItems = carts.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <>
@@ -32,20 +47,38 @@ const Header = () => {
 
           <div className="h-full w-full max-w-[300px] flex items-center justify-end cursor-pointer space-x-1">
             <motion.button
-              key={theme} 
+              key={theme}
               onClick={toggleTheme}
               className="text-3xl p-3 cursor-pointer"
               initial={{ rotate: 0, scale: 0.8 }}
               animate={{ rotate: 360, scale: 1 }}
-              whileTap={{ scale: 1.25 }}    
-              transition={{ type: "spring", duration: .16 }}
+              whileTap={{ scale: 1.25 }}
+              transition={{ type: "spring", duration: 0.16 }}
             >
               {theme === "dark" ? <FiSun /> : <MdDarkMode />}
             </motion.button>
 
-            <button className="text-3xl p-3 rounded-full hover:bg-gray-400/40 bg-opacity-40 cursor-pointer transition-colors duration-[160ms]">
-              <FaShoppingCart />
-            </button>
+            <Link to={"/cart"} className="relative">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative text-2xl p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg border border-gray-200 dark:border-gray-700 cursor-pointer transition-all duration-200"
+              >
+                <FaShoppingCart className="text-gray-700 dark:text-gray-300" />
+
+                {/* Badge */}
+                {totalItems > 0 && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1 shadow-lg border-2 border-white dark:border-gray-900"
+                  >
+                    {totalItems > 99 ? "99+" : totalItems}
+                  </motion.div>
+                )}
+              </motion.button>
+            </Link>
           </div>
         </div>
       </header>

@@ -1,4 +1,3 @@
-
 // hooks
 import { useContext } from "react";
 
@@ -30,8 +29,12 @@ const Header = () => {
       <div className="w-full bg-[#0d1117] dark:bg-[#8b949e] text-[#f0f6fc] h-10 ">
         <div className="max-w-7xl mx-auto h-full">
           <div className="w-full flex justify-center lg:justify-end items-center h-full">
-            <button className="mr-4">Sign in / Guest</button>
-            <button className="mr-4">Create an Account</button>
+            <Link to={"/login"}>
+              <button className="mr-4 cursor-pointer">Sign in / Login</button>
+            </Link>
+            <Link to={"/register"}>
+              <button className="mr-4 cursor-pointer">Create an Account</button>
+            </Link>
           </div>
         </div>
       </div>

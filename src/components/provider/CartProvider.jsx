@@ -1,4 +1,3 @@
-
 //hooks
 import { useEffect, useState } from "react";
 
@@ -7,7 +6,6 @@ import Swal from "sweetalert2";
 
 //context
 import CartContext from "../../context/CartContext";
-
 
 const CartProvider = ({ children }) => {
   const [carts, setCart] = useState(() => {
@@ -72,9 +70,17 @@ const CartProvider = ({ children }) => {
     });
   };
 
+  const updateCartQuantity = (productId, newQuantity) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
   return (
     <CartContext.Provider
-      value={{ handleAddToCart, carts, handleRemoveCart }}
+      value={{ handleAddToCart, carts, handleRemoveCart, updateCartQuantity }}
     >
       {children}
     </CartContext.Provider>

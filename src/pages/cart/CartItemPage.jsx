@@ -1,5 +1,5 @@
 //hooks
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // libraries
 import { motion } from "framer-motion";
@@ -9,7 +9,25 @@ import { FiMinus, FiPlus, FiTrash2 } from "react-icons/fi";
 import CartContext from "../../context/CartContext";
 
 const CartItemPage = ({ cart }) => {
-  const { handleRemoveCart } = useContext(CartContext);
+  const { handleRemoveCart, updateCartQuantity } = useContext(CartContext);
+
+  const [quantity, setQuantity] = useState(cart.quantity);
+
+  const handleAddQuantity = () => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    updateCartQuantity(cart.id, newQuantity);
+  };
+
+  const handleSubQuantity = () => {
+    const newQuantity = quantity - 1;
+    if (newQuantity >= 1) {
+      setQuantity(newQuantity);
+      updateCartQuantity(cart.id, newQuantity);
+    } else {
+      handleRemoveCart(cart.id);
+    }
+  };
   return (
     <div className="bg-white dark:bg-[#161b22] rounded-xl border border-gray-100 dark:border-[#30363d] p-4 shadow-sm hover:shadow-md transition-shadow duration-200 text-gray-900 dark:text-[#f0f6fc]">
       <div className="flex gap-4">
@@ -56,12 +74,30 @@ const CartItemPage = ({ cart }) => {
             <div className="flex items-center gap-3">
               <div className="text-[15px] text-gray-600 dark:text-[#8b949e]">
                 ${cart.price.toFixed(2)} each <br />
-                quantity: {cart.quantity}
+                <div className="flex items-center gap-2 mt-3">
+                  <button
+                    onClick={handleSubQuantity}
+                    className="h-8 w-8 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer"
+                  >
+                    <FiMinus className="h-3.5 w-3.5" />
+                  </button>
+
+                  <div className="h-8 w-14 flex items-center justify-center border rounded-md bg-gray-50 dark:bg-[#0d1117] text-base font-medium">
+                    {quantity}
+                  </div>
+
+                  <button
+                    onClick={handleAddQuantity}
+                    className="h-8 w-8 rounded-full flex items-center justify-center border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition cursor-pointer"
+                  >
+                    <FiPlus className="h-3.5 w-3.5" />
+                  </button>
+                </div>
               </div>
             </div>
 
             <div className="text-[16px] font-semibold text-gray-900 dark:text-[#f0f6fc]">
-              ${(cart.price * cart.quantity).toFixed(2)}
+              ${(cart.price * quantity).toFixed(2)}
             </div>
           </div>
         </div>

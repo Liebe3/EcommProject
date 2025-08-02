@@ -92,7 +92,7 @@ const Header = () => {
                 whileTap={{ scale: 0.95 }}
                 className="relative text-2xl p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 bg-white dark:bg-gray-900 shadow-md hover:shadow-lg border border-gray-200 dark:border-gray-700 cursor-pointer transition-all duration-200"
               >
-                <FaShoppingCart className="text-gray-700 dark:text-gray-300" />
+                <FaShoppingCart />
 
                 {/* Badge */}
                 {totalItems > 0 && (

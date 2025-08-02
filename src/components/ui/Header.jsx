@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 // library
 import { Link } from "react-router-dom";
-import { MdDarkMode } from "react-icons/md";
+import { MdDarkMode, MdBackHand } from "react-icons/md";
 import { FiSun } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -17,24 +17,49 @@ import Navbar from "./Navbar";
 
 //assets
 import logo from "../../assets/logo/logo.png";
+import AuthContext from "../../context/AuthContext";
 
 const Header = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { carts } = useContext(CartContext);
+  const { users, logout } = useContext(AuthContext);
 
   const totalItems = carts.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <>
-      <div className="w-full bg-[#0d1117] dark:bg-[#8b949e] text-[#f0f6fc] h-10 ">
+      <div className="w-full bg-[#0d1117] dark:bg-[#8b949e] text-[#f0f6fc] h-13 ">
         <div className="max-w-7xl mx-auto h-full">
           <div className="w-full flex justify-center lg:justify-end items-center h-full">
-            <Link to={"/login"}>
-              <button className="mr-4 cursor-pointer">Sign in / Login</button>
-            </Link>
-            <Link to={"/register"}>
-              <button className="mr-4 cursor-pointer">Create an Account</button>
-            </Link>
+            <div className="mr-4  font-medium  text-white  py-2.5 px-5 rounded-md  duration-150 ">
+              {users ? (
+                <>
+                  Welcome,{" "}
+                  {users.firstname.charAt(0).toUpperCase() +
+                    users.firstname.slice(1)}
+                  <MdBackHand className="inline-block text-orange-300 hover:text-orange-200 transition-colors duration-150 hover:animate-pulse ml-1" />
+                </>
+              ) : (
+                <Link to={"/login"}>
+                  <button className="cursor-pointer"> Sign in / Login</button>
+                </Link>
+              )}
+            </div>
+
+            {users ? (
+              <button
+                onClick={logout}
+                className="mr-4 cursor-pointer bg-red-600 text-white font-medium py-2.5 px-5 border border-red-700 hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-sm"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link to="/register">
+                <button className="mr-4 cursor-pointer text-white font-medium py-2.5 px-5 transition-colors duration-200  rounded-sm">
+                  Create an Account
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

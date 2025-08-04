@@ -3,17 +3,22 @@ import { useContext } from "react";
 
 //libraries
 import { motion } from "framer-motion";
-import {FiCreditCard } from "react-icons/fi";
+import { FiCreditCard } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 // context
 import CartContext from "../../context/CartContext";
+import AuthContext from "../../context/AuthContext";
 
 //components
 import CartItemPage from "./CartItemPage";
 import CartEmpty from "../../components/states/CartEmpty";
+import { nav } from "motion/react-client";
 
 const CartPage = () => {
   const { carts } = useContext(CartContext);
+  const { users } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   //total price
   const totalPrice = carts.reduce((initalValue, currentItem) => {
@@ -34,6 +39,13 @@ const CartPage = () => {
     return acc + itemTotal;
   }, 0);
 
+  const handleProceedToCheckout = () => {
+    if (!users) {
+      navigate("/login");
+    } else {
+      navigate("/checkout");
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0d1117] dark:text-[#f0f6fc] py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,17 +96,23 @@ const CartPage = () => {
                 </div>
 
                 <motion.button
+                  onClick={handleProceedToCheckout}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 mb-4"
                 >
-                  <FiCreditCard />
-                  Proceed to Checkout
+                  {users ? (
+                    <span className="flex items-center gap-2">
+                      <FiCreditCard /> Proceed to Checkout
+                    </span>
+                  ) : (
+                    <span>Please Login to Checkout</span>
+                  )}
                 </motion.button>
               </motion.div>
             </div>
           </div>
-        )} 
+        )}
       </div>
     </div>
   );

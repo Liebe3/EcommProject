@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Footer from "../../components/ui/Footer";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const [firstname, setFirstName] = useState("");
@@ -13,6 +14,7 @@ const RegisterPage = () => {
   const [terms, setTerms] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const navigate = useNavigate();
 
   // Reset form fucntion
   const resetForm = () => {
@@ -32,7 +34,7 @@ const RegisterPage = () => {
       text: message,
     });
   };
-	
+
   // show success fucntion
   const showSuccess = (message) => {
     Swal.fire({
@@ -47,6 +49,9 @@ const RegisterPage = () => {
     if (password !== confirmPassword) {
       return showError("Password dont match");
     }
+
+    // Get guest cart before registration
+    const guestCart = JSON.parse(localStorage.getItem("guest-cart")) || [];
 
     const newUser = { email, password, firstname };
 
@@ -65,8 +70,15 @@ const RegisterPage = () => {
     existingUsers.push(newUser);
     localStorage.setItem("registeredUsers", JSON.stringify(existingUsers));
 
+    // Transfer guest cart to user's cart
+    if (guestCart.length > 0) {
+      localStorage.setItem(`cart-${email}`, JSON.stringify(guestCart));
+      localStorage.removeItem("guest-cart");
+    }
+
     // Show success
-    showSuccess("Acount created successfuly");
+    showSuccess("Account created successfully");
+    navigate("/login");
     resetForm();
   };
 
@@ -75,9 +87,7 @@ const RegisterPage = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-[#0d1117] dark:text-[#f0f6fc] px-4 py-12">
         <div className="w-full max-w-md bg-white dark:bg-[#161b22] shadow-xl rounded-2xl p-8">
           <div className="mb-6 text-center">
-            <h2 className="text-3xl font-bold">
-              Create an Account
-            </h2>
+            <h2 className="text-3xl font-bold">Create an Account</h2>
           </div>
 
           <form onSubmit={handleRegister} className="space-y-5">

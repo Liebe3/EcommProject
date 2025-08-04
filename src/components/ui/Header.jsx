@@ -7,22 +7,32 @@ import { MdDarkMode, MdBackHand } from "react-icons/md";
 import { FiSun } from "react-icons/fi";
 import { FaShoppingCart } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 //context
 import ThemeContext from "../../context/ThemeContext";
 import CartContext from "../../context/CartContext";
+import AuthContext from "../../context/AuthContext";
 
 // components
 import Navbar from "./Navbar";
 
 //assets
 import logo from "../../assets/logo/logo.png";
-import AuthContext from "../../context/AuthContext";
 
 const Header = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const { carts } = useContext(CartContext);
+  const { carts, setCarts } = useContext(CartContext);
   const { users, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    logout();
+    navigate("/");
+
+    const guestCart = JSON.parse(localStorage.getItem("guest-cart")) || [];
+    setCarts(guestCart);
+  };
 
   const totalItems = carts.reduce((total, item) => total + item.quantity, 0);
 
@@ -48,7 +58,7 @@ const Header = () => {
 
             {users ? (
               <button
-                onClick={logout}
+                onClick={handleLogOut}
                 className="mr-4 cursor-pointer bg-red-600 text-white font-medium py-2.5 px-5 border border-red-700 hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-sm"
               >
                 Logout

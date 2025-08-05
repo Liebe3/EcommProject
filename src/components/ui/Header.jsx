@@ -38,10 +38,10 @@ const Header = () => {
 
   return (
     <>
-      <div className="w-full bg-[#0d1117] dark:bg-[#8b949e] text-[#f0f6fc] h-13 ">
+      <div className="w-full bg-[#0d1117] h-13 ">
         <div className="max-w-7xl mx-auto h-full">
           <div className="w-full flex justify-center lg:justify-end items-center h-full">
-            <div className="mr-4  font-medium  text-white  py-2.5 px-5 rounded-md  duration-150 ">
+            <div className="mr-4  font-medium text-white py-2.5 px-5 rounded-md  duration-150 ">
               {users ? (
                 <>
                   Welcome,{" "}
@@ -59,7 +59,7 @@ const Header = () => {
             {users ? (
               <button
                 onClick={handleLogOut}
-                className="mr-4 cursor-pointer bg-red-600 text-white font-medium py-2.5 px-5 border border-red-700 hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-sm"
+                className="mr-4 cursor-pointer text-red-600 font-medium py-2.5 px-5 border border-red-600 hover:bg-red-600 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-sm"
               >
                 Logout
               </button>

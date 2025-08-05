@@ -100,6 +100,25 @@ const CartProvider = ({ children }) => {
     );
   };
 
+  //total price
+  const totalPrice = carts.reduce((initalValue, currentItem) => {
+    return initalValue + currentItem.price * currentItem.quantity;
+  }, 0);
+
+  // total discount
+  const totalDiscount = carts.reduce((initialValue, item) => {
+    const discount =
+      item.price * item.quantity * (item.discountPercentage / 100);
+    return initialValue + discount;
+  }, 0);
+
+  //total price with disccount
+  const totalDiscountedPrice = carts.reduce((acc, item) => {
+    const itemTotal =
+      item.price * item.quantity * (1 - item.discountPercentage / 100);
+    return acc + itemTotal;
+  }, 0);
+
   return (
     <CartContext.Provider
       value={{
@@ -108,6 +127,9 @@ const CartProvider = ({ children }) => {
         setCarts,
         handleRemoveCart,
         updateCartQuantity,
+        totalPrice,
+        totalDiscount,
+        totalDiscountedPrice,
       }}
     >
       {children}

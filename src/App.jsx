@@ -7,7 +7,7 @@ import ProductPage from "./pages/product/ProductPage";
 import CartPage from "./pages/cart/CartPage";
 import ProductListPage from "./pages/product/ProductListPage";
 import Orders from "./pages/orders/Orders";
-import Purchase from "./pages/purchase/Purchase "
+import Purchase from "./pages/purchase/Purchase";
 import RegisterPage from "./pages/login/RegisterPage";
 import LoginPage from "./pages/login/LoginPage";
 

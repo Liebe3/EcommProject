@@ -9,11 +9,12 @@ import AuthContext from "../../context/AuthContext";
 import Swal from "sweetalert2";
 
 const LoginPage = () => {
-  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const showError = (message) => {
     Swal.fire({
@@ -45,9 +46,7 @@ const LoginPage = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-[#0d1117] dark:text-[#f0f6fc] px-4 py-12">
         <div className="w-full max-w-md bg-white dark:bg-[#161b22] shadow-xl rounded-2xl p-8">
           <div className="mb-6 text-center">
-            <h2 className="text-3xl font-bold">
-              Login
-            </h2>
+            <h2 className="text-3xl font-bold">Login</h2>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-5">

@@ -1,6 +1,8 @@
 //hooks
 import { useContext, useEffect, useState } from "react";
 
+import Swal from "sweetalert2";
+
 // Context
 import AuthContext from "../../context/AuthContext";
 
@@ -51,6 +53,11 @@ const AuthProvider = ({ children }) => {
       // Clear guest cart
       localStorage.removeItem("guest-cart");
     }
+      Swal.fire({
+      title: "Logged in successful!",
+      icon: "success",
+      draggable: true,
+    });
   };
 
   const logout = () => {
@@ -59,6 +66,11 @@ const AuthProvider = ({ children }) => {
     // Don't clear the user's cart when logging out
     // Just initialize an empty guest cart
     localStorage.setItem("guest-cart", JSON.stringify([]));
+    Swal.fire({
+      title: "Logged out!",
+      icon: "success",
+      draggable: true,
+    });
   };
 
   return (

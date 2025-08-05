@@ -13,37 +13,18 @@ import AuthContext from "../../context/AuthContext";
 //components
 import CartItemPage from "./CartItemPage";
 import CartEmpty from "../../components/states/CartEmpty";
-import { nav } from "motion/react-client";
 
 const CartPage = () => {
-  const { carts } = useContext(CartContext);
+  const { carts, totalPrice, totalDiscount, totalDiscountedPrice } =
+    useContext(CartContext);
   const { users } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  //total price
-  const totalPrice = carts.reduce((initalValue, currentItem) => {
-    return initalValue + currentItem.price * currentItem.quantity;
-  }, 0);
-
-  // total discount
-  const totalDiscount = carts.reduce((initialValue, item) => {
-    const discount =
-      item.price * item.quantity * (item.discountPercentage / 100);
-    return initialValue + discount;
-  }, 0);
-
-  //total price with disccount
-  const totalDiscountedPrice = carts.reduce((acc, item) => {
-    const itemTotal =
-      item.price * item.quantity * (1 - item.discountPercentage / 100);
-    return acc + itemTotal;
-  }, 0);
 
   const handleProceedToCheckout = () => {
     if (!users) {
       navigate("/login");
     } else {
-      navigate("/checkout");
+      navigate("/purchase");
     }
   };
   return (

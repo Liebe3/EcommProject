@@ -15,6 +15,8 @@ import Purchase from "./pages/purchase/Purchase";
 import RegisterPage from "./pages/login/RegisterPage";
 import LoginPage from "./pages/login/LoginPage";
 import AboutPage from "./pages/about/AboutPage";
+import TermsPage from "./pages/terms/TermsPage";
+import PrivacyPage from "./pages/privacy/PrivacyPage";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
         <Route path={"/purchase"} element={<Purchase />} />
         <Route path={"/register"} element={<RegisterPage />} />
         <Route path={"/login"} element={<LoginPage />} />
+        <Route path={"/terms"} element={<TermsPage />} />
+        <Route path={"/privacy"} element={<PrivacyPage/>}/>
       </Routes>
     </Router>
   );

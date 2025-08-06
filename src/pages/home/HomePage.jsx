@@ -63,9 +63,11 @@ const HomePage = () => {
                       Shop Now
                     </button>
                   </Link>
-                  <button className="px-8 py-3 border border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 cursor-pointer">
-                    Learn More
-                  </button>
+                  <Link to={"/about"}>
+                    <button className="px-8 py-3 border border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 cursor-pointer">
+                      Learn More
+                    </button>
+                  </Link>
                 </div>
               </div>
 

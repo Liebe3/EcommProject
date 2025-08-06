@@ -41,6 +41,21 @@ const Purchase = () => {
     setError("");
   };
 
+  const erroNotif = (message) => {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: message,
+    });
+  };
+
+  const successNotif = (message) => {
+    Swal.fire({
+      title: message,
+      icon: "success",
+    });
+  };
+
   const handleNumber = (event) => {
     const value = event.target.value;
     if (/^\d*$/.test(value)) {
@@ -51,11 +66,7 @@ const Purchase = () => {
     event.preventDefault();
 
     if (totalDiscountedPrice === 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Order is empty. Please select at least one item",
-      });
+      erroNotif("Order is empty. Please select at least one item");
       navigate("/product");
       return;
     }
@@ -96,6 +107,7 @@ const Purchase = () => {
       setCarts([]);
       clearForm();
 
+      successNotif("Order Placed Successfuly");
       setLoading(false);
       navigate("/orders");
     }, 1000);

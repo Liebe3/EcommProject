@@ -1,10 +1,14 @@
+//hooks
 import { useContext, useState } from "react";
-import { motion } from "framer-motion";
 
-import CartContext from "../../context/CartContext";
-import AuthContext from "../../context/AuthContext";
+//libraries
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+
+//context
+import CartContext from "../../context/CartContext";
+import AuthContext from "../../context/AuthContext";
 
 const Purchase = () => {
   const { carts, setCarts, totalPrice, totalDiscount, totalDiscountedPrice } =

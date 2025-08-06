@@ -1,12 +1,19 @@
-import React, { useContext, useState } from "react";
+//hooks
+import { useContext, useState } from "react";
+
+//libraries
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../../components/ui/Footer";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import AuthContext from "../../context/AuthContext";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Swal from "sweetalert2";
+
+//components
+import Footer from "../../components/ui/Footer";
+
+//context
+import AuthContext from "../../context/AuthContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import CartContext from "../../context/CartContext";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Purchase = () => {
   const { carts, setCarts, totalPrice, totalDiscount, totalDiscountedPrice } =
@@ -44,6 +45,16 @@ const Purchase = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (totalDiscountedPrice === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Order is empty. Please select at least one item",
+      });
+      navigate("/product");
+      return;
+    }
 
     if (number.length !== 11) {
       setError("Please enter valid number only!");

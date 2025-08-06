@@ -1,9 +1,14 @@
+//hooks
 import { useState } from "react";
+
+//libraries
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import Footer from "../../components/ui/Footer";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+
+//components
+import Footer from "../../components/ui/Footer";
 
 const RegisterPage = () => {
   const [firstname, setFirstName] = useState("");

@@ -13,6 +13,7 @@ import AuthContext from "../../context/AuthContext";
 
 const NAV_LINKS = [
   { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
   { name: "Product", href: "/product" },
   { name: "Cart", href: "/cart" },
 ];

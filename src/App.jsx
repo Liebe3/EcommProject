@@ -1,6 +1,10 @@
-import { useState } from "react";
+// libraries
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// styles
 import "./App.css";
+
+//components
 import Header from "./components/ui/Header";
 import HomePage from "./pages/home/HomePage";
 import ProductPage from "./pages/product/ProductPage";
@@ -15,7 +19,6 @@ function App() {
   return (
     <Router>
       <Header />
-
       <Routes>
         <Route path={"/"} element={<HomePage />} />
         <Route path={"/product"} element={<ProductListPage />} />

@@ -1,4 +1,7 @@
+//hooks
 import { useContext } from "react";
+
+//context
 import AuthContext from "../../context/AuthContext";
 
 const Orders = () => {
@@ -14,7 +17,9 @@ const Orders = () => {
         </h1>
         <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-6">
           Total Orders:{" "}
-          <span className=" text-2xl font-bold text-blue-600 ">{orders.length}</span>
+          <span className=" text-2xl font-bold text-blue-600 ">
+            {orders.length}
+          </span>
         </h2>
 
         {/* Scrollable container */}

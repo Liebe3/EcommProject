@@ -191,11 +191,11 @@ const RegisterPage = () => {
               />
               <label>
                 I agree to the{" "}
-                <Link className="text-blue-600 dark:text-blue-400 underline hover:text-blue-500">
+                <Link to={"/terms"} className="text-blue-600 dark:text-blue-400 underline hover:text-blue-500">
                   Terms
                 </Link>{" "}
                 and{" "}
-                <Link className="text-blue-600 dark:text-blue-400 underline hover:text-blue-500">
+                <Link to={"/privacy"} className="text-blue-600 dark:text-blue-400 underline hover:text-blue-500">
                   Privacy Policy
                 </Link>
               </label>

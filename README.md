@@ -8,7 +8,7 @@ EcommProject is a modern e-commerce front-end application built with React.js an
 - Responsive Design: Works on desktop, tablet, and mobile.
 - Dark Mode Support: Optional dark/light mode toggle.
 - Product Features: Detailed product pages with images, prices, and availability.
-- State Management: Managed efficiently using React Context API for cart and filters
+- State Management: Managed efficiently using React Context API for cart and filters.
 - Shopping Cart: Add, remove, and update product quantities.
 - Filters: Filter by category.
 

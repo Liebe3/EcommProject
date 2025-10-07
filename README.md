@@ -1,4 +1,4 @@
-# 🛒 jallenShop - Ecommerce Website
+# 🛒 Ecommerce Website
 
 EcommProject is a modern e-commerce front-end application built with React.js and Tailwind CSS. It allows users to browse products, view detailed product pages, manage their shopping cart, and checkout seamlessly. The application uses localStorage to persist cart data and user preferences, enabling users to continue their shopping experience even after refreshing the page or closing the browser.
 
